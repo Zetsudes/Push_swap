@@ -15,6 +15,7 @@ int reverse_rotate_a(Stack *a)
         i++;
     }
     a->stack[a->top] = tmp;
+    write(1, "rra\n", 3);
     return (1);
 }
 
@@ -33,6 +34,7 @@ int reverse_rotate_b(Stack *b)
         i++;
     }
     b->stack[b->top] = tmp;
+    write(1, "rrb\n", 3);
     return (1);
 }
 
@@ -42,5 +44,6 @@ int reverse_rotate_both(Stack *a, Stack *b)
         return (0);
     reverse_rotate_a(a);
     reverse_rotate_b(b);
+    write(1, "rrr\n", 3);
     return (1);
 }

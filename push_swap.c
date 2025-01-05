@@ -5,93 +5,108 @@ void init_stack(Stack *s)
     s->top = -1;
 }
 
-void print_stack(Stack *s)
+int handle_error()
 {
-    int i;
+    write(2, "Error\n", 6);
+    return (1);
+}
 
-    i = 0;
-    if (s->top == -1)
-    {
-        printf("Stack is empty :( \n");
-        return;
-    }
+int has_duplicate(Stack *s, int num)
+{
+    int i = 0;
+
     while (i <= s->top)
     {
-        printf("%d ", s->stack[i]);
+        if (s->stack[i] == num)
+            return 1;
         i++;
     }
-    printf("\n");
+    return 0;
 }
 
-int pop(Stack *s)
+void sort_stack(Stack *a, Stack *b)
 {
-    int ça_dégage;
-    if (s->top >= 0)
-    {
-        ça_dégage = s->stack[s->top];
-        s->top--;
-        printf("Oust ça dégage %d\n", ça_dégage);
-        return (ça_dégage);
-    }
-    else
-    {
-        printf("Oopsie doopsie cant pop\n");
-        return (-1);
-    }
-}
+    int size = a->top + 1;
+    int median;
+    int pushed = 0;
 
-int quick_sort(Stack *a, Stack *b)
-{
-    int pivot;
-    int i;
-
-    if (a->top <= 1)
-        return 0;
-    if (a->top <= 0)
-        return 1;
-    pivot = a->stack[0];
-    i = 1;
-    while (i <= a->top)
+    median = find_median(a);
+    while (a->top + 1 > 3 && pushed < (size / 2))
     {
-        if (a->stack[i] < pivot)
+        if (a->stack[a->top] < median)
+        {
             push_to_b(b, a);
+            pushed++;
+        }
         else
             rotate_a(a);
-        i++;
     }
-    if (a->top > 1)
-        quick_sort(a, b);
-    if (b->top > 0)
-        quick_sort(b, a);
-    return 1;
+    sort_three(a);
+    while (b->top >= 0)
+    {
+        int max = b->stack[0];
+        int max_pos = 0;
+        int i = 1;
+        while (i <= b->top)
+        {
+            if (b->stack[i] > max)
+            {
+                max = b->stack[i];
+                max_pos = i;
+            }
+            i++;
+        }
+        while (max_pos > 0)
+        {
+            rotate_b(b);
+            max_pos--;
+        }
+        push_to_a(a, b);
+    }
 }
 
-int main()
+int main(int argc, char **argv)
 {
-    Stack a, b;
-    init_stack(&a);
-    init_stack(&b);
+    Stack stack_a;
+    Stack stack_b;
+    int i;
+    long num;
+    printf("hello");
+    fflush(stdout);
+    if (argc < 2)
+        return handle_error();
+    printf("Before init_stack\n");
+    init_stack(&stack_a);
+    init_stack(&stack_b);
+    printf("After init_stack\n");
 
-    a.stack[++a.top] = 13;
-    a.stack[++a.top] = 2;
-    a.stack[++a.top] = 37;
-    a.stack[++a.top] = 64;
-    a.stack[++a.top] = 28;
-    a.stack[++a.top] = 87;
-
-    printf("Initial Stack a:\n");
-    print_stack(&a);
-
-    printf("Initial Stack b:\n");
-    print_stack(&b);
-
-    quick_sort(&a, &b);
-
-    printf("Sorted Stack a:\n");
-    print_stack(&a);
-
-    printf("Sorted Stack b:\n");
-    print_stack(&b);
-
+    i = 1;
+    while (i < argc)
+    {
+        if (!is_number(argv[i]))
+            return handle_error();
+        num = atol(argv[i]);
+        if (num > INT_MAX || num < INT_MIN)
+            return handle_error();
+        if (has_duplicate(&stack_a, (int)num))
+            return handle_error();
+        push(&stack_a, (int)num);
+        print_stack(&stack_a);
+        i++;
+    }
+    if (is_sorted(&stack_a))
+        return 0;
+    if (argc == 3 && stack_a.stack[stack_a.top] > stack_a.stack[stack_a.top - 1])
+    {
+        swap_a(&stack_a);
+        return 0;
+    }
+    if (argc == 4)
+    {
+        sort_three(&stack_a);
+        return 0;
+    }
+    sort_stack(&stack_a, &stack_b);
+    print_stack(&stack_a);
     return 0;
 }

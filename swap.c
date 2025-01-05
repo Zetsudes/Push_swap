@@ -9,6 +9,7 @@ int swap_a(Stack *a)
         tmp = a->stack[a->top];
         a->stack[a->top] = a->stack[a->top - 1];
         a->stack[a->top - 1] = tmp;
+        write(1, "sa\n", 3);
         return (1);
     }
     else
@@ -24,6 +25,7 @@ int swap_b(Stack *b)
         tmp = b->stack[b->top];
         b->stack[b->top] = b->stack[b->top - 1];
         b->stack[b->top - 1] = tmp;
+        write(1, "sb\n", 3);
         return (1);
     }
     else

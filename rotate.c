@@ -6,16 +6,17 @@ int rotate_a(Stack *a)
     int i;
 
     i = a->top;
-
-    if (i <= 0)
-        return (0);
     tmp = a->stack[i];
+
+    if (a->top <= 0)
+        return (0);
     while (i > 0)
     {
         a->stack[i] = a->stack[i - 1];
         i--;
     }
     a->stack[0] = tmp;
+    write(1, "ra\n", 3);
     return (1);
 }
 
@@ -34,6 +35,7 @@ int rotate_b(Stack *b)
         i--;
     }
     b->stack[0] = tmp;
+    write(1, "rb\n", 3);
     return (1);
 }
 

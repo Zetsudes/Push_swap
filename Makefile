@@ -2,6 +2,7 @@ CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror 
 
 SRC = push_swap.c \
+		push_swap_utils.c \
 		push.c \
 		swap.c \
 		rotate.c \

@@ -1,5 +1,8 @@
+LIBFT_DIR = ./greg_lib
+
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror 
+LIBFT_FLAGS = -L$(LIBFT_DIR) -lft
 
 SRC = push_swap.c \
 		push_swap_utils.c \
@@ -15,10 +18,10 @@ NAME = push_swap
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	$(CC) $(OBJ) $(LIBFT_FLAGS) -o $(NAME)
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)

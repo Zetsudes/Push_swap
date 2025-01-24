@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/14 09:49:57 by zamohame          #+#    #+#             */
+/*   Updated: 2025/01/14 09:53:45 by zamohame         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "push_swap.h"
 
 void	print_stack(Stack *s)
@@ -15,6 +28,26 @@ void	print_stack(Stack *s)
 		i++;
 	}
 	printf("\n");
+}
+
+int	handle_error(void)
+{
+	write(2, "Error\n", 6);
+	return (1);
+}
+
+int	has_duplicate(Stack *s, int num)
+{
+	int	i;
+
+	i = 0;
+	while (i <= s->top)
+	{
+		if (s->stack[i] == num)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	is_sorted(Stack *s)
@@ -78,31 +111,4 @@ int	find_median(Stack *s)
 		i++;
 	}
 	return (tmp[(s->top) / 2]);
-}
-
-void	sort_three(Stack *a)
-{
-	int	first;
-	int	second;
-	int	third;
-
-	first = a->stack[a->top];
-	second = a->stack[a->top - 1];
-	third = a->stack[a->top - 2];
-	if (first > second && second < third && first < third)
-		swap_a(a);
-	else if (first > second && second > third)
-	{
-		swap_a(a);
-		reverse_rotate_a(a);
-	}
-	else if (first > second && second < third && first > third)
-		rotate_a(a);
-	else if (first < second && second > third && first < third)
-	{
-		swap_a(a);
-		rotate_a(a);
-	}
-	else if (first < second && second > third && first > third)
-		reverse_rotate_a(a);
 }

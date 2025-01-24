@@ -6,7 +6,7 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:51:42 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/24 17:37:20 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:22:52 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,13 @@ void	sort_three(Stack *a)
 	else if (first < second && second > third && first > third)
 		reverse_rotate_a(a);
 }
-
 void	sort_five(Stack *a, Stack *b)
 {
 	int	size;
 	int	median;
 	int	pushed;
-	int	max;
-	int	max_pos;
+	int	min;
+	int	min_pos;
 	int	i;
 
 	size = a->top + 1;
@@ -73,22 +72,33 @@ void	sort_five(Stack *a, Stack *b)
 	sort_three(a);
 	while (b->top >= 0)
 	{
-		max = b->stack[0];
-		max_pos = 0;
+		min = b->stack[0];
+		min_pos = 0;
 		i = 1;
 		while (i <= b->top)
 		{
-			if (b->stack[i] > max)
+			if (b->stack[i] < min)
 			{
-				max = b->stack[i];
-				max_pos = i;
+				min = b->stack[i];
+				min_pos = i;
 			}
 			i++;
 		}
-		while (max_pos > 0)
+		if (min_pos <= b->top / 2)
 		{
-			rotate_b(b);
-			max_pos--;
+			while (min_pos > 0)
+			{
+				rotate_b(b);
+				min_pos--;
+			}
+		}
+		else
+		{
+			while (min_pos < b->top)
+			{
+				reverse_rotate_b(b);
+				min_pos++;
+			}
 		}
 		push_to_a(a, b);
 	}

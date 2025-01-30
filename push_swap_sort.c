@@ -6,7 +6,7 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:51:42 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/24 18:22:52 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/01/30 12:16:31 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	sort(Stack *a, Stack *b)
 {
-	while (a->top > 2)
-		make_next_move(a, b);
-	sort_three(a);
-	while (b->top >= 0)
-		push_to_a(a, b);
+	int	size;
+
+	size = a->top + 1;
+	if (size <= 3)
+		sort_three(a);
+	else if (size <= 5)
+		sort_five(a, b);
+	else
+		sort_big(a, b);
 }
 
 void	sort_three(Stack *a)
@@ -102,4 +106,21 @@ void	sort_five(Stack *a, Stack *b)
 		}
 		push_to_a(a, b);
 	}
+}
+
+void	sort_big(Stack *a, Stack *b)
+{
+	int	size;
+	int	pushed;
+
+	size = a->top + 1;
+	pushed = 0;
+	while (size - pushed > 3)
+	{
+		move_min_to_b(a, b);
+		pushed++;
+	}
+	sort_three(a);
+	while (b->top >= 0)
+		push_to_a(a, b);
 }

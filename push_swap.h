@@ -6,7 +6,7 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:49:40 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/24 17:39:38 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:38:26 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ typedef struct
 	int	stack[MAX_SIZE];
 	int	top;
 }		Stack;
+
+typedef struct
+{
+	int	value;
+	int	index;
+	int	target_pos;
+	int	cost_a;
+	int	cost_b;
+	int	total_cost;
+}		t_move;
 
 void	init_stack(Stack *s);
 void	print_stack(Stack *s);
@@ -50,7 +60,10 @@ int		is_number(char *str);
 int		is_sorted(Stack *s);
 int		find_median(Stack *s);
 void	sort(Stack *a, Stack *b);
-void	make_next_move(Stack *a, Stack *b);
-int		cost(int index, int stack_size);
+int		get_max(Stack *stack);
+int		get_min(Stack *stack);
+int		get_pos(Stack *stack, int num);
+void	move_min_to_b(Stack *a, Stack *b);
+void	sort_big(Stack *a, Stack *b);
 
 #endif

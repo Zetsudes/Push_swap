@@ -6,45 +6,74 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 14:05:49 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/24 17:38:50 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:38:19 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	cost(int index, int stack_size)
+int	get_max(Stack *stack)
 {
-	int	rotate_cost;
-	int	reverse_rotate_cost;
-
-	rotate_cost = index;
-	reverse_rotate_cost = stack_size - index;
-	if (rotate_cost <= reverse_rotate_cost)
-		return (rotate_cost);
-	return (reverse_rotate_cost);
-}
-
-void	make_next_move(Stack *a, Stack *b)
-{
+	int	max;
 	int	i;
-	int	best_index;
 
 	i = 0;
-	best_index = -1;
-	while (++i <= a->top)
+	max = stack->stack[0];
+	while (i <= stack->top)
 	{
-		if (cost(i, a->top + 1) < cost(best_index, a->top + 1))
-			best_index = i;
+		if (stack->stack[i] > max)
+			max = stack->stack[i];
+		i++;
 	}
-	while (best_index > 0)
+	return (max);
+}
+
+int	get_min(Stack *stack)
+{
+	int	min;
+	int	i;
+
+	i = 0;
+	min = stack->stack[0];
+	while (i <= stack->top)
 	{
-		rotate_a(a);
-		best_index--;
+		if (stack->stack[i] < min)
+			min = stack->stack[i];
+		i++;
 	}
-	while (best_index < a->top)
+	return (min);
+}
+
+int	get_pos(Stack *stack, int num)
+{
+	int	i;
+
+	i = 0;
+	while (i <= stack->top)
 	{
-		reverse_rotate_a(a);
-		best_index++;
+		if (stack->stack[i] == num)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+void	move_min_to_b(Stack *a, Stack *b)
+{
+	int	min;
+	int	pos;
+
+	min = get_min(a);
+	pos = get_pos(a, min);
+	if (pos <= a->top / 2)
+	{
+		while (a->stack[a->top] != min)
+			rotate_a(a);
+	}
+	else
+	{
+		while (a->stack[a->top] != min)
+			reverse_rotate_a(a);
 	}
 	push_to_b(b, a);
 }

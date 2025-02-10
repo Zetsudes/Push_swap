@@ -6,7 +6,7 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:49:14 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/14 09:49:15 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:24:00 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	rotate_a(Stack *a)
 		i--;
 	}
 	a->stack[0] = tmp;
-	write(1, "ra\n", 3);
+	ft_printf("ra\n");
 	return (1);
 }
 
@@ -47,7 +47,7 @@ int	rotate_b(Stack *b)
 		i--;
 	}
 	b->stack[0] = tmp;
-	write(1, "rb\n", 3);
+	ft_printf("rb\n");
 	return (1);
 }
 
@@ -57,6 +57,6 @@ int	rotate_both(Stack *a, Stack *b)
 		return (0);
 	rotate_a(a);
 	rotate_b(b);
-	write(1, "rr\n", 3);
+	ft_printf("rr\n");
 	return (1);
 }

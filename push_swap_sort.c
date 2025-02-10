@@ -6,7 +6,7 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:51:42 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/30 12:16:31 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/02/10 10:17:47 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,62 +51,30 @@ void	sort_three(Stack *a)
 	else if (first < second && second > third && first > third)
 		reverse_rotate_a(a);
 }
-void	sort_five(Stack *a, Stack *b)
+void sort_five(Stack *a, Stack *b)
 {
-	int	size;
-	int	median;
-	int	pushed;
-	int	min;
-	int	min_pos;
-	int	i;
-
-	size = a->top + 1;
-	pushed = 0;
-	median = find_median(a);
-	while (a->top + 1 > 3 && pushed < (size / 2))
-	{
-		if (a->stack[a->top] < median)
-		{
-			push_to_b(b, a);
-			pushed++;
-		}
-		else
-			rotate_a(a);
-	}
-	sort_three(a);
-	while (b->top >= 0)
-	{
-		min = b->stack[0];
-		min_pos = 0;
-		i = 1;
-		while (i <= b->top)
-		{
-			if (b->stack[i] < min)
-			{
-				min = b->stack[i];
-				min_pos = i;
-			}
-			i++;
-		}
-		if (min_pos <= b->top / 2)
-		{
-			while (min_pos > 0)
-			{
-				rotate_b(b);
-				min_pos--;
-			}
-		}
-		else
-		{
-			while (min_pos < b->top)
-			{
-				reverse_rotate_b(b);
-				min_pos++;
-			}
-		}
-		push_to_a(a, b);
-	}
+    int min;
+	
+    while (a->top + 1 > 3)
+    {
+        min = get_min(a);
+        if (a->stack[a->top] == min)
+            push_to_b(b, a);
+        else
+            rotate_a(a);
+    }
+    sort_three(a);
+    while (b->top >= 0)
+    {
+        push_to_a(a, b);
+        if (a->stack[a->top] > a->stack[a->top - 1])
+            rotate_a(a);
+    }
+    while (a->stack[a->top] != get_min(a))
+        rotate_a(a);
 }
+
+
 
 void	sort_big(Stack *a, Stack *b)
 {

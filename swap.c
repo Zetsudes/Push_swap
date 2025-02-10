@@ -6,7 +6,7 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:49:03 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/14 09:49:05 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:24:26 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	swap_a(Stack *a)
 		tmp = a->stack[a->top];
 		a->stack[a->top] = a->stack[a->top - 1];
 		a->stack[a->top - 1] = tmp;
-		write(1, "sa\n", 3);
+		ft_printf("sa\n");
 		return (1);
 	}
 	else
@@ -38,7 +38,7 @@ int	swap_b(Stack *b)
 		tmp = b->stack[b->top];
 		b->stack[b->top] = b->stack[b->top - 1];
 		b->stack[b->top - 1] = tmp;
-		write(1, "sb\n", 3);
+		ft_printf("sb\n");
 		return (1);
 	}
 	else
@@ -51,6 +51,6 @@ int	swap_both(Stack *a, Stack *b)
 		return (0);
 	swap_a(a);
 	swap_b(b);
-	write(1, "ss\n", 3);
+	ft_printf("ss\n");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: zamohame <zamohame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 09:49:40 by zamohame          #+#    #+#             */
-/*   Updated: 2025/01/30 11:38:26 by zamohame         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:14:40 by zamohame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+#include "../greg_lib/libft.h"
+#include "../print_greg/ft_printf.h"
 
 # define MAX_SIZE 100
 
@@ -26,16 +28,6 @@ typedef struct
 	int	stack[MAX_SIZE];
 	int	top;
 }		Stack;
-
-typedef struct
-{
-	int	value;
-	int	index;
-	int	target_pos;
-	int	cost_a;
-	int	cost_b;
-	int	total_cost;
-}		t_move;
 
 void	init_stack(Stack *s);
 void	print_stack(Stack *s);

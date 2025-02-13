@@ -13,50 +13,54 @@
 
 #include "push_swap.h"
 
-int	rotate_a(Stack *a)
+int rotate_a(Stack *a)
 {
-	int	tmp;
-	int	i;
+    int tmp;
+    int i;
 
-	i = a->top;
-	tmp = a->stack[i];
-	if (a->top <= 0)
-		return (0);
-	while (i > 0)
-	{
-		a->stack[i] = a->stack[i - 1];
-		i--;
-	}
-	a->stack[0] = tmp;
-	ft_printf("ra\n");
-	return (1);
+    if (a->top <= 0)
+        return (0);
+    tmp = a->stack[0];
+    i = -1;
+    while (++i < a->top)
+        a->stack[i] = a->stack[i + 1];
+    a->stack[a->top] = tmp;
+    ft_printf("ra\n");
+    return (1);
 }
 
-int	rotate_b(Stack *b)
+int rotate_b(Stack *b)
 {
-	int	tmp;
-	int	i;
+    int tmp;
+    int i;
 
-	i = b->top;
-	if (i <= 0)
-		return (0);
-	tmp = b->stack[i];
-	while (i > 0)
-	{
-		b->stack[i] = b->stack[i - 1];
-		i--;
-	}
-	b->stack[0] = tmp;
-	ft_printf("rb\n");
-	return (1);
+    if (b->top <= 0)
+        return (0);
+    tmp = b->stack[0];
+    i = -1;
+    while (++i < b->top)
+        b->stack[i] = b->stack[i + 1];
+    b->stack[b->top] = tmp;
+    ft_printf("rb\n");
+    return (1);
 }
 
-int	rotate_both(Stack *a, Stack *b)
+int rotate_both(Stack *a, Stack *b)
 {
-	if (a->top <= 0 || b->top <= 0)
-		return (0);
-	rotate_a(a);
-	rotate_b(b);
-	ft_printf("rr\n");
-	return (1);
+    int tmp_a, tmp_b, i;
+
+    if (a->top <= 0 || b->top <= 0)
+        return (0);
+    tmp_a = a->stack[0];
+    i = -1;
+    while (++i < a->top)
+        a->stack[i] = a->stack[i + 1];
+    a->stack[a->top] = tmp_a;
+    tmp_b = b->stack[0];
+    i = -1;
+    while (++i < b->top)
+        b->stack[i] = b->stack[i + 1];
+    b->stack[b->top] = tmp_b;
+    ft_printf("rr\n");
+    return (1);
 }

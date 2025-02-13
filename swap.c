@@ -13,20 +13,19 @@
 
 #include "push_swap.h"
 
-int	swap_a(Stack *a)
+int swap_a(Stack *a)
 {
-	int	tmp;
+    int tmp;
 
-	if (a->top > 0)
-	{
-		tmp = a->stack[a->top];
-		a->stack[a->top] = a->stack[a->top - 1];
-		a->stack[a->top - 1] = tmp;
-		ft_printf("sa\n");
-		return (1);
-	}
-	else
-		return (0);
+    if (a->top > 0)
+    {
+        tmp = a->stack[0];
+        a->stack[0] = a->stack[1];
+        a->stack[1] = tmp;
+        ft_printf("sa\n");
+        return (1);
+    }
+    return (0);
 }
 
 int	swap_b(Stack *b)
@@ -35,9 +34,9 @@ int	swap_b(Stack *b)
 
 	if (b->top > 0)
 	{
-		tmp = b->stack[b->top];
-		b->stack[b->top] = b->stack[b->top - 1];
-		b->stack[b->top - 1] = tmp;
+		tmp = b->stack[0];
+		b->stack[0] = b->stack[1];
+		b->stack[1] = tmp;
 		ft_printf("sb\n");
 		return (1);
 	}
@@ -45,12 +44,19 @@ int	swap_b(Stack *b)
 		return (0);
 }
 
-int	swap_both(Stack *a, Stack *b)
+int swap_both(Stack *a, Stack *b)
 {
-	if (!(a->top > 0 && b->top > 0))
-		return (0);
-	swap_a(a);
-	swap_b(b);
-	ft_printf("ss\n");
-	return (1);
+    int tmp_a;
+    int tmp_b;
+
+    if (!(a->top > 0 && b->top > 0))
+        return (0);
+    tmp_a = a->stack[0];
+    a->stack[0] = a->stack[1];
+    a->stack[1] = tmp_a;
+    tmp_b = b->stack[0];
+    b->stack[0] = b->stack[1];
+    b->stack[1] = tmp_b; 
+    ft_printf("ss\n");
+    return (1);
 }

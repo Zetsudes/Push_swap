@@ -12,54 +12,62 @@
 
 #include "push_swap.h"
 
-void	sort(Stack *a, Stack *b)
+void sort(Stack *a, Stack *b)
 {
-	int	size;
+    int size;
 
-	size = a->top + 1;
-	if (size <= 3)
-		sort_three(a);
-	else if (size <= 5)
-		sort_five(a, b);
-	else
-		sort_big(a, b);
+    size = a->top + 1;
+    if (size <= 3)
+        sort_three(a);
+    else if (size <= 5)
+        sort_five(a, b);
+    else
+        sort_big(a, b);
 }
 
-void	sort_three(Stack *a)
+void sort_three(Stack *a)
 {
-	int	first;
-	int	second;
-	int	third;
+    int first;
+    int second;
+    int third;
 
-	first = a->stack[a->top];
-	second = a->stack[a->top - 1];
-	third = a->stack[a->top - 2];
-	if (first > second && second < third && first < third)
-		swap_a(a);
-	else if (first > second && second > third)
-	{
-		swap_a(a);
-		reverse_rotate_a(a);
-	}
-	else if (first > second && second < third && first > third)
-		rotate_a(a);
-	else if (first < second && second > third && first < third)
-	{
-		swap_a(a);
-		rotate_a(a);
-	}
-	else if (first < second && second > third && first > third)
-		reverse_rotate_a(a);
+    first = a->stack[0];
+    second = a->stack[1];
+    third = a->stack[2];
+    if (first > second && second < third && first < third)
+        swap_a(a);
+    else if (first > second && second > third)
+    {
+        swap_a(a);
+        reverse_rotate_a(a);
+    }
+    else if (first > second && second < third && first > third)
+        rotate_a(a);
+    else if (first < second && second > third && first < third)
+    {
+        swap_a(a);
+        rotate_a(a);
+    }
+    else if (first < second && second > third && first > third)
+        reverse_rotate_a(a);
 }
+
 void sort_five(Stack *a, Stack *b)
 {
     int min;
-	
-    while (a->top + 1 > 3)
+
+    if (a->top < 3)
+        return;
+    while (a->top > 2)
     {
         min = get_min(a);
-        if (a->stack[a->top] == min)
+        if (a->stack[0] == min)
             push_to_b(b, a);
+        else if (a->stack[1] == min)
+        {
+            swap_a(a);
+            push_to_b(b, a);
+        }
         else
             rotate_a(a);
     }
@@ -67,28 +75,30 @@ void sort_five(Stack *a, Stack *b)
     while (b->top >= 0)
     {
         push_to_a(a, b);
-        if (a->stack[a->top] > a->stack[a->top - 1])
-            rotate_a(a);
-    }
-    while (a->stack[a->top] != get_min(a))
         rotate_a(a);
+    }
 }
 
-
-
-void	sort_big(Stack *a, Stack *b)
+void sort_big(Stack *a, Stack *b)
 {
-	int	size;
-	int	pushed;
+    int min;
 
-	size = a->top + 1;
-	pushed = 0;
-	while (size - pushed > 3)
-	{
-		move_min_to_b(a, b);
-		pushed++;
-	}
-	sort_three(a);
-	while (b->top >= 0)
-		push_to_a(a, b);
+    if (a->top < 3)
+        return;
+    while (a->top > 2)
+    {
+        min = get_min(a);
+        if (a->stack[0] == min)
+            push_to_b(b, a);
+        else if (a->stack[1] == min)
+        {
+            swap_a(a);
+            push_to_b(b, a);
+        }
+        else
+            rotate_a(a);
+    }
+    sort_three(a);
+    while (b->top >= 0)
+        push_to_a(a, b);
 }

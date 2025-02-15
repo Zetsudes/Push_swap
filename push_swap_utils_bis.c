@@ -65,15 +65,31 @@ void	move_min_to_b(Stack *a, Stack *b)
 
 	min = get_min(a);
 	pos = get_pos(a, min);
-	if (pos <= a->top / 2)
+	if (pos <= (a->top + 1) / 2)
 	{
-		while (a->stack[a->top] != min)
+		while (a->stack[0] != min)
 			rotate_a(a);
 	}
 	else
 	{
-		while (a->stack[a->top] != min)
+		while (a->stack[0] != min)
 			reverse_rotate_a(a);
 	}
 	push_to_b(b, a);
+}
+
+int get_rank(Stack *a, int value)
+{
+    int i;
+    int rank;
+
+    rank = 0;
+    i = 0;
+    while (i <= a->top)
+    {
+        if (a->stack[i] < value)
+            rank++;
+        i++;
+    }
+    return (rank);
 }

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 int push(Stack *stack, int num)
 {
     if (stack->top >= MAX_SIZE - 1)
@@ -35,7 +36,7 @@ int push_to_a(Stack *a, Stack *b)
     i = 0;
     while (i < b->top)
     {
-        b->stack[i] = b->stack[i];
+        b->stack[i] = b->stack[i + 1];
         i++;
     }
     a->top++;
@@ -64,4 +65,51 @@ int push_to_b(Stack *b, Stack *a)
     a->top--;
     ft_printf("pb\n");
     return (1);
+}
+
+void push_a_bit(Stack *a, Stack *b)
+{
+    int total;
+    int bit_size;
+    int pushed;
+
+    total = a->top + 1;
+    if (total <= 100)
+        bit_size = total / 5;
+    else
+        bit_size = total / 11;
+    pushed = 0;
+    while (a->top >= 0)
+    {
+        if (get_rank(a, a->stack[0]) <= pushed + bit_size)
+        {
+            push_to_b(a, b);
+            pushed++;
+            if (b->top >= 0 && b->stack[0] < pushed - (bit_size / 2))
+                rotate_b(b);
+        }
+        else
+            rotate_a(a);
+    }
+}
+
+void push_back(Stack *a, Stack *b)
+{
+    int max;
+
+    while (b->top >= 0)
+    {
+        max = get_max(b);
+        if (max <= (b->top / 2))
+        {
+            while (max-- > 0)
+                rotate_b(b);
+        }
+        else
+        {
+            while (++max <= b->top + 1)
+                reverse_rotate_b(b);
+        }
+        push_to_a(a, b);
+    }
 }

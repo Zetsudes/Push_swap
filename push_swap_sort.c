@@ -17,13 +17,31 @@ void sort(Stack *a, Stack *b)
     int size;
 
     size = a->top + 1;
-    if (size <= 3)
+    if (is_sorted(a))
+        return;
+    if (size == 2)
+    {
+        swap_a(a);
+        return;
+    }
+    if (size == 3)
+    {
         sort_three(a);
-    else if (size <= 5)
-        sort_five(a, b);
-    else
+        return;
+    }
+    if (size == 4)
+    {
+        sort_four(a, b);
+        return;
+    }
+    if (size <= 6)
+    {
         sort_big(a, b);
+        return;
+    }
+    sort_big(a, b);
 }
+
 
 void sort_three(Stack *a)
 {
@@ -52,53 +70,52 @@ void sort_three(Stack *a)
         reverse_rotate_a(a);
 }
 
-void sort_five(Stack *a, Stack *b)
+/* void sort_four(Stack *a, Stack *b)
 {
-    int min;
-
-    if (a->top < 3)
-        return;
-    while (a->top > 2)
+    int min_index;
+    
+    min_index = get_min_index(a);
+    if (min_index == 1)
+        swap_a(a);
+    else if (min_index == 2)
     {
-        min = get_min(a);
-        if (a->stack[0] == min)
-            push_to_b(b, a);
-        else if (a->stack[1] == min)
-        {
-            swap_a(a);
-            push_to_b(b, a);
-        }
-        else
-            rotate_a(a);
-    }
-    sort_three(a);
-    while (b->top >= 0)
-    {
-        push_to_a(a, b);
+        rotate_a(a);
         rotate_a(a);
     }
+    else if (min_index == 3)
+        reverse_rotate_a(a);
+    push_to_b(a, b);
+    sort_three(a);
+
+    push_to_a(a, b);
+} */
+
+void sort_four(Stack *a, Stack *b)
+{
+
+    if (is_sorted(a))
+        return;
+        
+
+    int min_index = get_min_index(a);
+
+    if (min_index == 1)
+        swap_a(a);
+    else if (min_index == 2)
+        rotate_a(a);
+    else if (min_index == 3)
+        reverse_rotate_a(a);
+    
+    push_to_b(a, b);
+    
+    sort_three(a);
+
+    push_to_a(a, b);
 }
+
 
 void sort_big(Stack *a, Stack *b)
 {
-    int min;
-
-    if (a->top < 3)
-        return;
-    while (a->top > 2)
-    {
-        min = get_min(a);
-        if (a->stack[0] == min)
-            push_to_b(b, a);
-        else if (a->stack[1] == min)
-        {
-            swap_a(a);
-            push_to_b(b, a);
-        }
-        else
-            rotate_a(a);
-    }
-    sort_three(a);
-    while (b->top >= 0)
-        push_to_a(a, b);
+    push_a_bit(a, b);
+    push_back(a, b);
 }

@@ -13,23 +13,6 @@
 
 #include "push_swap.h"
 
-void	print_stack(Stack *s)
-{
-	int	i;
-
-	i = 0;
-	if (s->top == -1)
-		return ;
-	printf("\n");
-	printf("Stack : ");
-	while (i <= s->top)
-	{
-		printf("%d ", s->stack[i]);
-		i++;
-	}
-	printf("\n");
-}
-
 int	handle_error(void)
 {
 	write(2, "Error\n", 6);

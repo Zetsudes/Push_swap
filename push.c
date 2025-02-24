@@ -83,7 +83,7 @@ void push_a_bit(Stack *a, Stack *b)
     {
         if (get_rank(a, a->stack[0]) <= pushed + bit_size)
         {
-            push_to_b(a, b);
+            push_to_b(b, a);
             pushed++;
             if (b->top >= 0 && b->stack[0] < pushed - (bit_size / 2))
                 rotate_b(b);
@@ -96,18 +96,20 @@ void push_a_bit(Stack *a, Stack *b)
 void push_back(Stack *a, Stack *b)
 {
     int max;
+	int max_pos;
 
     while (b->top >= 0)
     {
         max = get_max(b);
-        if (max <= (b->top / 2))
+		max_pos = get_pos(b, max);
+        if (max_pos <= (b->top / 2))
         {
-            while (max-- > 0)
+            while (b->stack[0] != max)
                 rotate_b(b);
         }
         else
         {
-            while (++max <= b->top + 1)
+            while (b->stack[0] != max)
                 reverse_rotate_b(b);
         }
         push_to_a(a, b);

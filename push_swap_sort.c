@@ -34,9 +34,9 @@ void sort(Stack *a, Stack *b)
         sort_four(a, b);
         return;
     }
-    if (size <= 6)
+    if (size == 5)
     {
-        sort_big(a, b);
+        sort_five(a, b);
         return;
     }
     sort_big(a, b);
@@ -81,6 +81,17 @@ void sort_four(Stack *a, Stack *b)
     
     sort_three(a);
 
+    push_to_a(a, b);
+}
+
+void sort_five(Stack *a, Stack *b)
+{
+    move_min_to_b(a, b);
+    move_min_to_b(a, b);
+    
+    sort_three(a);
+    
+    push_to_a(a, b);
     push_to_a(a, b);
 }
 

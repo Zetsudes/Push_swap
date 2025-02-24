@@ -53,6 +53,7 @@ void	sort(Stack *a, Stack *b);
 void	sort_three(Stack *a);
 void	sort_big(Stack *a, Stack *b);
 void 	sort_four(Stack *a, Stack *b);
+void 	sort_five(Stack *a, Stack *b);
 
 int		handle_error(void);
 int		has_duplicate(Stack *s, int num);

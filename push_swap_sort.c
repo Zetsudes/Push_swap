@@ -70,26 +70,6 @@ void sort_three(Stack *a)
         reverse_rotate_a(a);
 }
 
-/* void sort_four(Stack *a, Stack *b)
-{
-    int min_index;
-    
-    min_index = get_min_index(a);
-    if (min_index == 1)
-        swap_a(a);
-    else if (min_index == 2)
-    {
-        rotate_a(a);
-        rotate_a(a);
-    }
-    else if (min_index == 3)
-        reverse_rotate_a(a);
-    push_to_b(a, b);
-    sort_three(a);
-
-    push_to_a(a, b);
-} */
-
 void sort_four(Stack *a, Stack *b)
 {
 
@@ -97,16 +77,7 @@ void sort_four(Stack *a, Stack *b)
         return;
         
 
-    int min_index = get_min_index(a);
-
-    if (min_index == 1)
-        swap_a(a);
-    else if (min_index == 2)
-        rotate_a(a);
-    else if (min_index == 3)
-        reverse_rotate_a(a);
-    
-    push_to_b(a, b);
+    move_min_to_b(a, b);
     
     sort_three(a);
 

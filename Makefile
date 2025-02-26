@@ -11,13 +11,11 @@
 # **************************************************************************** #
 
 LIBFT_DIR = ../greg_lib
-PRINTF_DIR = ../print_greg
 
 LIBFT = $(LIBFT_DIR)/libft.a
-PRINTF = $(PRINTF_DIR)/libftprintf.a
 
 CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -fPIE
 
 SRC = push_swap.c \
       push_swap_utils.c \
@@ -34,20 +32,17 @@ NAME = push_swap
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(PRINTF) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(PRINTF)
+$(NAME): $(LIBFT) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBFT) 
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
-$(PRINTF):
-	$(MAKE) -C $(PRINTF_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)
-	$(MAKE) clean -C $(PRINTF_DIR)
 	rm -f $(OBJ)
 
 fclean: clean

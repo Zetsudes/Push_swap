@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+        
+/*                                                    +:+ +:+
 	+:+     */
-/*   By: zamohame <zamohame@student.42.fr>          +#+  +:+      
+/*   By: zamohame <zamohame@student.42.fr>          +#+  +:+
 	+#+        */
-/*                                                +#+#+#+#+#+  
+/*                                                +#+#+#+#+#+
 	+#+           */
 /*   Created: 2025/01/14 09:49:40 by zamohame          #+#    #+#             */
 /*   Updated: 2025/02/10 11:14:40 by zamohame         ###   ########.fr       */
@@ -38,6 +38,9 @@ int	push_to_a(Stack *a, Stack *b);
 int	push_to_b(Stack *b, Stack *a);
 void	push_a_bit(Stack *a, Stack *b);
 void	push_back(Stack *a, Stack *b);
+void	sort_under_hundred(Stack *a, Stack *b);
+void	push_back_sorted(Stack *a, Stack *b);
+void	push_chunks(Stack *a, Stack *b, int chunk_size);
 
 int	swap_a(Stack *a);
 int	swap_b(Stack *b);

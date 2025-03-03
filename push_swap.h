@@ -38,9 +38,6 @@ int	push_to_a(Stack *a, Stack *b);
 int	push_to_b(Stack *b, Stack *a);
 void	push_a_bit(Stack *a, Stack *b);
 void	push_back(Stack *a, Stack *b);
-void	sort_under_hundred(Stack *a, Stack *b);
-void	push_back_sorted(Stack *a, Stack *b);
-void	push_chunks(Stack *a, Stack *b, int chunk_size);
 
 int	swap_a(Stack *a);
 int	swap_b(Stack *b);
@@ -64,14 +61,11 @@ int	handle_error(void);
 int	has_duplicate(Stack *s, int num);
 int	is_number(char *str);
 int	is_sorted(Stack *s);
-int	find_median(Stack *s);
 
 int	get_max(Stack *stack);
 int	get_min(Stack *stack);
 int	get_pos(Stack *stack, int num);
 void	move_min_to_b(Stack *a, Stack *b);
 int	get_rank(Stack *a, int value);
-
-int	get_min_index(Stack *a);
 
 #endif

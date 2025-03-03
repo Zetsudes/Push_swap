@@ -96,72 +96,8 @@ void	sort_five(Stack *a, Stack *b)
 	push_to_a(a, b);
 }
 
-void	push_sorted_chunks(Stack *a, Stack *b, int chunk_size)
-{
-	int total = a->top + 1;
-	int pushed = 0;
-
-	while (pushed < total)
-	{
-		int limit = pushed + chunk_size;
-		if (limit > total)
-			limit = total; // Adjust for the last chunk
-
-		while (a->top >= 0 && get_rank(a, a->stack[0]) <= limit)
-		{
-			push_to_b(b, a);
-			pushed++;
-
-			// Rotate `b` only if necessary to keep some order
-			if (b->top > 0 && b->stack[0] < pushed - (chunk_size / 2))
-			{
-				rotate_b(b);
-			}
-		}
-	}
-}
-
-void	smart_push_back(Stack *a, Stack *b)
-{
-	while (b->top >= 0)
-	{
-		int max = get_max(b);
-		int max_pos = get_pos(b, max);
-
-		// Optimize how we retrieve the max value
-		if (max_pos <= (b->top / 2))
-		{
-			while (b->stack[0] != max)
-				rotate_b(b);
-		}
-		else
-		{
-			while (b->stack[0] != max)
-				reverse_rotate_b(b);
-		}
-		push_to_a(a, b);
-	}
-}
-
 void	sort_big(Stack *a, Stack *b)
 {
-	int total = a->top + 1;
-
-	if (total > 100)
-	{
-		int chunk_size = 100; // Always push chunks of 100
-		push_sorted_chunks(a, b, chunk_size);
-
-		// Sort each batch inside `b`
 		push_a_bit(a, b);
 		push_back(a, b);
-
-		// Push remaining numbers from `b` in sorted order
-		smart_push_back(a, b);
-	}
-	else
-	{
-		push_a_bit(a, b);
-		push_back(a, b);
-	}
 }

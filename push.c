@@ -78,10 +78,7 @@ void	push_a_bit(Stack *a, Stack *b)
 	int pushed;
 
 	total = a->top + 1;
-	if (total <= 100)
-		bit_size = total / 5;
-	else
-		bit_size = total / 11;
+	bit_size = total / 15;
 	pushed = 0;
 	while (a->top >= 0)
 	{

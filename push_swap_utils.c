@@ -63,35 +63,3 @@ int	is_number(char *str)
 	}
 	return (1);
 }
-
-int	find_median(Stack *s)
-{
-	int	tmp[s->top + 1];
-	int	i;
-	int	j;
-	int	temp;
-
-	i = 0;
-	while (i <= s->top)
-	{
-		tmp[i] = s->stack[i];
-		i++;
-	}
-	i = 0;
-	while (i < s->top)
-	{
-		j = 0;
-		while (j < s->top - i)
-		{
-			if (tmp[j] > tmp[j + 1])
-			{
-				temp = tmp[j];
-				tmp[j] = tmp[j + 1];
-				tmp[j + 1] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
-	return (tmp[(s->top) / 2]);
-}
